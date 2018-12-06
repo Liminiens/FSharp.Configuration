@@ -1,3 +1,4 @@
+open System.IO
 // --------------------------------------------------------------------------------------
 // FAKE build script
 // --------------------------------------------------------------------------------------
@@ -114,19 +115,19 @@ Target "InstallDotNetCore" (fun _ ->
 )
 
 Target "Build" (fun _ ->
-    let outDir = __SOURCE_DIRECTORY__ + "/bin/lib/net45/"
+    let outDir = Path.Combine(__SOURCE_DIRECTORY__, "bin", "lib", "net45")
     CreateDir outDir
     DotNetCli.Publish (fun p -> 
         { p with
-            Output = outDir
+            Output = sprintf "\"%s\"" outDir
             Framework = "net45"
             WorkingDir = "src/FSharp.Configuration/" })
 
-    let outDir = __SOURCE_DIRECTORY__ + "/bin/lib/netstandard2.0/"
+    let outDir = Path.Combine(__SOURCE_DIRECTORY__, "bin", "lib", "netstandard2.0")
     CreateDir outDir
     DotNetCli.Publish (fun p -> 
         { p with
-            Output = outDir
+            Output = sprintf "\"%s\"" outDir
             Framework = "netstandard2.0"
             WorkingDir = "src/FSharp.Configuration/" })
 )

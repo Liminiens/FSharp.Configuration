@@ -1,5 +1,5 @@
 (*** hide ***)
-#I "../../bin"
+#I "../../bin/lib/net45"
 
 (**
 FSharp.Configuration

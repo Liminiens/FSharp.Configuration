@@ -3,17 +3,20 @@
 open FSharp.Configuration.Helper
 open Microsoft.FSharp.Core.CompilerServices
 open ProviderImplementation.ProvidedTypes
+open System.Text
 
 [<TypeProvider>]
 type FSharpConfigurationProvider(cfg: TypeProviderConfig) as this =
     inherit TypeProviderForNamespaces(cfg, addDefaultProbingLocation = true)
+    #if !NET45
+    static do 
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
+    #endif
     let context = new Context(this, cfg)
     do this.AddNamespace (
             rootNamespace,
             [
-#if NET45
               ResXProvider.typedResources context
-#endif
               AppSettingsTypeProvider.typedAppSettings context
               YamlConfigTypeProvider.typedYamlConfig context
               IniFileProvider.typedIniFile context ])

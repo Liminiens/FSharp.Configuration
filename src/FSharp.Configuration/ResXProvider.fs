@@ -1,16 +1,19 @@
 ﻿module FSharp.Configuration.ResXProvider
 
-#if NET45
-
 open System
 open System.IO
 open System.Reflection
 open System.Resources
-open System.ComponentModel.Design
 open System.Collections
 open System.Collections.Concurrent
-open ProviderImplementation.ProvidedTypes
+open System.ComponentModel;
+open System.ComponentModel.Design;
 open FSharp.Configuration.Helper
+open ProviderImplementation.ProvidedTypes
+
+#if NETSTANDARD2_0
+open Resx.Resources
+#endif
 
 let readFile (filePath: FilePath) : ResXDataNode list =
     use reader = new ResXResourceReader(filePath, UseResXDataNodes = true)
@@ -76,5 +79,3 @@ let internal typedResources (context: Context) =
     with ex ->
         debug "Error in ResxProvider: %s\n\t%s" ex.Message ex.StackTrace
         reraise ()
-
-#endif

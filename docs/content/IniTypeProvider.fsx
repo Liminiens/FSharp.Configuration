@@ -1,5 +1,5 @@
 (*** hide ***)
-#I "../../bin"
+#I "../../bin/lib/net45"
 
 (**
 The Ini type provider

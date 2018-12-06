@@ -3,13 +3,11 @@ module FSharp.Configuration.Tests.ResXTests
 open FSharp.Configuration
 open Expecto
 
-#if NET461
-
 type Resource1 = ResXProvider<"Resource1.resx">
 
 let [<Tests>] tests =
     // https://github.com/Microsoft/msbuild/issues/2221
-    ptestList "ResX Provider tests" [
+    testList "ResX Provider tests" [
         testCase "Can return a string from the resource file" (fun _ ->
             Expect.equal Resource1.Greetings "Hello World!" "value")
 
@@ -22,5 +20,3 @@ let [<Tests>] tests =
         testCase "Can return a text file from the resource file" (fun _ ->
             Expect.equal Resource1.TextFile "Text" "value")
     ]
-
-#endif
