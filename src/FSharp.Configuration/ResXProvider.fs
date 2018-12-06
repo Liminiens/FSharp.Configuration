@@ -11,7 +11,7 @@ open System.ComponentModel.Design;
 open FSharp.Configuration.Helper
 open ProviderImplementation.ProvidedTypes
 
-#if NETSTANDARD2_0
+#if !NET45
 open Resx.Resources
 #endif
 
