@@ -4,7 +4,7 @@ redirects: force
 
 nuget YamlDotNet
 nuget FSharp.Core 4.3.4
-nuget Resx 0.1.1
+nuget Resx 0.2.0
 nuget System.Configuration.ConfigurationManager
 nuget NETStandard.Library.NETFramework prerelease
 
