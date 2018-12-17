@@ -23,10 +23,11 @@ let readFile (filePath: FilePath) : ResXDataNode list =
     |> Seq.toList
 
 let resourceManCache = ConcurrentDictionary<string * Assembly, ResourceManager> ()
-
-let readValue resourceName assembly key =
-    let resourceMan = resourceManCache.GetOrAdd ((resourceName, assembly),
-                        fun _ -> ResourceManager (resourceName, assembly))
+let readValue resourceName (assembly: Assembly) key =
+    let name = assembly.GetName().Name
+    let resourceFullName = sprintf "%s.%s" name resourceName
+    let resourceMan = resourceManCache.GetOrAdd ((resourceFullName, assembly),
+                        fun _ -> ResourceManager (resourceFullName, assembly))
     downcast (resourceMan.GetObject key)
 
 /// Converts ResX entries to provided properties
